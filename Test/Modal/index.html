@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Scrollable Overlay</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .disable-scroll {
+            overflow: hidden;
+        }
+
+        .dm-modal {
+            width: 100%;
+            width: 100vw;
+            height: 100vh;
+            box-sizing: border-box;
+            top: 0;
+            left: 0;
+            right: 0;
+            position: fixed;
+            z-index: 2347483657 !important;
+            /* transition: 1s ease all; */
+        }
+
+        .dm-modal-hide {
+            opacity: 0;
+            user-select: none;
+            top: -200%;
+            /* transition: 1s ease all; */
+        }
+    </style>
+</head>
+
+<body>
+	<!-- Belanja Start -->
+	<button class="bg-secondary show-modal2 py-1 font-medium w-full rounded-md my-2">Belanja
+		(2)</button>
+	<!-- Pop Up Start -->
+	<div class="dm-modal2 dm-modal-hide bg-black bg-opacity-60 top-0 h-screen fixed z-10 justify-center items-center"
+		data-trigger="show-modal2">
+		<div class="rounded h-full items-center flex justify-center">
+			<div class="bg-white relative opacity-100 rounded py-10 px-5 text-center w-[600px] h-[600px]">
+				<div class="flex my-5 gap-5">
+					<input
+						class="placeholder:placeholder:text-slate-400 w-[325px] text-xs block bg-white border h-7 border-slate-300 rounded-sm"
+						placeholder="Masukkan kode voucher kamu disini ya ...." type="text" />
+					<p class="w-[230px] h-[30px] text-[18px] bg-neutral-800 text-first font-medium">Gunakan</p>
+				</div>
+				<h2 class="text-first font-bold text-left mb-5">Voucher Saya</h2>
+				<div class="w-full h-[108px] mb-5 border cursor-pointer border-black">
+					<p class="text-3xl h-full flex items-center justify-center text-secondary">
+						VOUCHER FREE ONGKIR</p>
+				</div>
+				<div class="w-full h-[108px] mb-5 border cursor-pointer border-black">
+					<p class="text-3xl h-full flex items-center justify-center text-secondary dm-close-modal"
+						@click.prevent="tab = 'tab3'">
+						VOUCHER CASHBACK</p>
+				</div>
+				<div class="w-full h-[108px] mb-5 border cursor-pointer border-black">
+					<p class="text-3xl h-full flex items-center justify-center text-secondary">
+						VOUCHER DISKON 78%</p>
+				</div>
+				<div class="mt-2 absolute w-full flex justify-between items-end left-0 top-0">
+					<h1 class="text-first px-5 font-base">Pakai Voucher Promo</h1>
+					<button type="button" class="dm-close-modal">
+						<svg class="w-10 fill-current text-forth" viewBox="0 0 24 24" width="24">
+							<path d="M6 18L18 6M6 6L18 18" stroke="#94a3b8" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="2" /></svg>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Pop Up End -->
+	<!-- Belanja End -->
+
+	<!-- Pembayaran Start -->
+	<div class="p-5">
+		<button class="bg-secondary show-modal3 py-1 font-medium w-full rounded-md mt-2">Pilih
+			Pembayaran</button>
+	</div>
+	<!-- Pop Up Start -->
+	<div class="dm-modal3 dm-modal-hide bg-black bg-opacity-60 top-0 h-screen fixed z-10 justify-center items-center"
+		data-trigger="show-modal3">
+		<div class="rounded h-full items-center flex justify-center">
+			<div class="bg-white relative opacity-100 rounded py-10 px-5 text-center w-[600px]">
+				<img class="h-[300px] w-full my-5" src="https://source.unsplash.com/1000x600?sing">
+				<div class="mt-2 absolute w-full text-right top-0 left-0">
+					<button type="button" class="dm-close-modal">
+						<svg class="w-10 fill-current text-forth" viewBox="0 0 24 24" width="24">
+							<path d="M6 18L18 6M6 6L18 18" stroke="#94a3b8" stroke-linecap="round"
+								stroke-linejoin="round" stroke-width="2" /></svg>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Pop Up End -->
+	<!-- Pembayaran End -->
+
+	<script src="http://unpkg.com/jquery"></script>
+	<script src="./script.js"></script>
+	<script>
+		jQuery.noConflict();
+		jQuery(document).ready(function ($) {
+			/* Pop Up Start */
+			if ($(".dm-modal")[0]) {
+				var dm_trigger_class = "." + $('.dm-modal').data("trigger");
+				$(dm_trigger_class).click(function (e) {
+					e.preventDefault();
+					$('.dm-modal').appendTo('body');
+					$('.dm-modal').removeClass("dm-modal-hide").addClass("dm-visible");
+					$('body').addClass("disable-scroll");
+				});
+				$('.dm-close-modal').click(function (e) {
+					e.preventDefault();
+					$('.dm-modal').addClass("dm-modal-hide").removeClass("dm-visible");
+					$('body').removeClass("disable-scroll");
+				});
+				$('.dm-modal-mask').click(function (e) {
+					e.preventDefault();
+					$('.dm-modal').addClass("dm-modal-hide").removeClass("dm-visible");;
+					$('body').removeClass("disable-scroll");
+				});
+				$(document).on("keyup", function (e) {
+					if (e.key === "Escape") {
+						$('.dm-modal').addClass("dm-modal-hide").removeClass("dm-visible");;
+						$('body').removeClass("disable-scroll");
+					}
+				});
+			}
+		});
+	</script>
+</body>
+
+</html>
